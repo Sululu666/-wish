@@ -29,6 +29,9 @@ const DREAMY_COLORS = [
 ];
 
 const App: React.FC = () => {
+  // 检测移动设备
+  const isMobile = window.innerWidth < 768;
+
   const [appState, setAppState] = useState<AppState>(AppState.IDLE);
   const [wishes, setWishes] = useState<FlyingWish[]>([]);
   const [decorations, setDecorations] = useState<DecorationParticle[]>([]);
@@ -148,8 +151,8 @@ const App: React.FC = () => {
     setWishes(newWishes);
 
     // --- Generate Decorations (Bling) ---
-    // Decrease count on mobile
-    const numDecorations = isMobile ? 80 : 150;
+    // Decrease count on mobile significantly
+    const numDecorations = isMobile ? 40 : 100;
     const newDecorations: DecorationParticle[] = Array.from({
       length: numDecorations
     }).map((_, i) => {
@@ -324,11 +327,17 @@ const App: React.FC = () => {
             size={size}
             fill={d.color}
             style={style}
-            className="animate-pulse"
+            className={isMobile ? "" : "animate-pulse"}
           />
         );
       case "sparkle":
-        return <Sparkles size={size} style={style} className="animate-ping" />;
+        return (
+          <Sparkles
+            size={size}
+            style={style}
+            className={isMobile ? "" : "animate-ping"}
+          />
+        );
       case "pearl":
         return (
           <div
@@ -443,9 +452,9 @@ const App: React.FC = () => {
                 }}
                 transition={{
                   type: "spring",
-                  stiffness: 40,
-                  damping: 15,
-                  mass: 0.8,
+                  stiffness: isMobile ? 60 : 40,
+                  damping: isMobile ? 20 : 15,
+                  mass: 0.6,
                   delay: formationMode === "scatter" ? 0 : deco.delay
                 }}
                 className="absolute flex items-center justify-center"
@@ -473,9 +482,9 @@ const App: React.FC = () => {
                 }}
                 transition={{
                   type: "spring",
-                  stiffness: 45,
-                  damping: 15,
-                  mass: 1,
+                  stiffness: isMobile ? 60 : 45,
+                  damping: isMobile ? 18 : 15,
+                  mass: 0.8,
                   delay: formationMode === "scatter" ? 0 : wish.delay * 0.5
                 }}
                 className="absolute flex items-center justify-center"
