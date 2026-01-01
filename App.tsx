@@ -43,6 +43,8 @@ const App: React.FC = () => {
   const [activeWishList, setActiveWishList] = useState<string[]>([]);
   // Store the mapping of wish index -> heart position index
   const [positionMapping, setPositionMapping] = useState<number[]>([]);
+  // Keep per-wish colors stable across formations
+  const wishColorsRef = useRef<string[]>([]);
 
   // 3D Rotation State
   const [isDragging, setIsDragging] = useState(false);
@@ -83,6 +85,13 @@ const App: React.FC = () => {
     setActiveWishList(newList);
     // Initialize position mapping
     setPositionMapping(getShuffledIndices(newList.length));
+    // Initialize stable colors for this render cycle (center is fixed red)
+    const colors: string[] = newList.map((_, i) =>
+      i === 0
+        ? "#ff4d4d"
+        : DREAMY_COLORS[Math.floor(Math.random() * DREAMY_COLORS.length)]
+    );
+    wishColorsRef.current = colors;
   }, []);
 
   const initScene = useCallback(() => {
@@ -123,9 +132,11 @@ const App: React.FC = () => {
 
       // Color logic
       const isCenter = i === 0;
-      const randomColor =
-        DREAMY_COLORS[Math.floor(Math.random() * DREAMY_COLORS.length)];
-      const color = isCenter ? "#ff4d4d" : randomColor;
+      const color =
+        wishColorsRef.current[i] ??
+        (isCenter
+          ? "#ff4d4d"
+          : DREAMY_COLORS[Math.floor(Math.random() * DREAMY_COLORS.length)]);
 
       // Scale Adjustment for Mobile
       let scale = 1;
