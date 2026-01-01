@@ -1,15 +1,14 @@
 export const WISHES_LIST = [
   "新的一年", // Index 0 reserved for center
-  "不再焦虑", "开开心心", "幸福每一天", "阳光灿烂", "发财赚大钱",
+  "不再焦虑", "开开心心", "幸福每天", "阳光灿烂", "发财赚钱",
   "永远美丽", "永远青春", "永远活力", "心想事成", "好运连连",
   "万事胜意", "岁岁平安", "前程似锦", "平安喜乐", "光芒万丈",
-  "拒绝内耗", "清醒独立", "自由漫游", "暴美暴富", "未来可期",
-  "平安", "喜乐", "暴富", "自由", "可爱", "被爱", "好运", "健康", "勇敢", 
-  "温柔", "坚定", "浪漫", "发财", "顺利", "开心", "漂亮", "自信", "独立", 
-  "清醒", "热烈", "心动", "美好", "无畏", "上岸", "加薪", "瘦身", "脱单", 
-  "锦鲤", "高升", "长乐", "无忧", "顺遂", "闪耀", "快乐", "知足", "好眠", 
-  "美食", "旅行", "看海", "日落", "鲜花", "惊喜", "奇迹", "偏爱", "宠溺",
-  "富有", "才华", "智慧", "优雅", "松弛", "特别", "幸运", "灿烂", "明媚",
+  "拒绝内耗", "清醒独立", "自由漫游", "暴美暴富",
+  "平安", "喜乐", "暴富", "自由", "可爱", "被爱", "好运", "健康", "勇敢",
+  "温柔", "坚定", "浪漫", "发财", "顺利", "开心", "漂亮", "自信", "独立",
+  "清醒", "热烈", "美好", "无畏", "上岸", "加薪", "瘦身", "脱单",
+  "长乐", "无忧", "顺遂", "闪耀", "快乐", "知足", "好眠",
+  "富有", "才华", "智慧", "优雅", "松弛", "幸运", "灿烂", "明媚",
   "好好睡觉", "好好吃饭", "想哭就哭", "想笑就笑", "做自己", "不被定义"
 ];
 
@@ -43,7 +42,7 @@ export const getHeartPosition3D = (index: number, total: number, radius: number)
     // Outer Shell
     scale = 1;
     // Map 0..0.5 to 0..1 for angle
-    tOffset = (layerProgress / 0.5) * Math.PI * 2; 
+    tOffset = (layerProgress / 0.5) * Math.PI * 2;
   } else if (layerProgress < 0.8) {
     // Middle Shell
     scale = 0.7;
@@ -64,7 +63,7 @@ export const getHeartPosition3D = (index: number, total: number, radius: number)
 
   // Add some randomness to Z to create a 3D "Cloud" volume
   // The z-depth is thicker in the middle and thinner at the edges to look like a puffy heart
-  const zBase = (Math.random() - 0.5) * 10; 
+  const zBase = (Math.random() - 0.5) * 10;
 
   return {
     x: xBase * scale * (radius / 16), // Normalize roughly
